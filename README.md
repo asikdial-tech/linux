@@ -1,17 +1,14 @@
-# 🐧 Fedora First-Time Setup Script
+# 🐧 Fedora Linux Setup Guide
 
 ![Fedora Linux Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Fedora_icon_%282021%29.svg/240px-Fedora_icon_%282021%29.svg.png)
 
 ## 📝 Why This Exists
 Every fresh Fedora installation requires the same setup steps. This repository ensures I never miss anything and can get productive immediately.
 
-# Fedora Linux Setup Guide
-
 ## Introduction
 This guide provides a streamlined approach to setting up Fedora Linux with all necessary tools and configurations to ensure a smooth and efficient workflow.
 
 ---
-
 ## 1. Installation
 ### Steps:
 1. **Download Fedora ISO:** Get the latest version from [Fedora's official website](https://getfedora.org/).
