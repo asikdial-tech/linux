@@ -5,93 +5,129 @@
 ## 📝 Why This Exists
 Every fresh Fedora installation requires the same setup steps. This repository ensures I never miss anything and can get productive immediately.
 
+# Fedora Linux Setup Guide
+
+## Introduction
+This guide provides a streamlined approach to setting up Fedora Linux with all necessary tools and configurations to ensure a smooth and efficient workflow.
+
+---
+
+## 1. Installation
+### Steps:
+1. **Download Fedora ISO:** Get the latest version from [Fedora's official website](https://getfedora.org/).
+2. **Create a bootable USB:** Use `dd` or **Rufus** to flash the ISO.
+3. **Boot and Install:**
+   - Boot from the USB and follow the Fedora installer.
+   - Select disk partitions (Recommended):
+     - `/` (root) - 70GB (OS and apps)
+     - `/home` - 100GB (User files and projects)
+     - `swap` - 30GB (Virtual memory, adjust as needed)
+   - Complete the installation and reboot.
+4. **Update System:**
+   ```bash
+   sudo dnf update -y
+   ```
+---
+
+## 2. Desktop Environment
+### Recommended:
+- **XFCE (Lightweight & Fast)**
+  ```bash
+  sudo dnf install @xfce-desktop
+  ```
+- **GNOME (Modern Look)**
+  ```bash
+  sudo dnf groupinstall "GNOME Desktop Environment"
+  ```
+- **MacOS Look:**
+  ```bash
+  sudo dnf install plank
+  ```
+  - Install `gtk-theme-whitesur` and `whitesur-icon-theme` for a MacOS-like aesthetic.
+---
+
+## 3. Essential Software Installation
+Install core tools using `dnf`:
 ```bash
-# One-command installation (recommended)
-curl -sL https://raw.githubusercontent.com/yourusername/fedora-setup/main/setup.sh | bash
-
-# Update everything
-sudo dnf upgrade --refresh -y
-sudo dnf autoremove -y
-
-# Add RPM Fusion repositories
 sudo dnf install -y \
-  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-  https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-# Media & Creativity
-sudo dnf install -y \
-  vlc \
+  libreoffice \
+  firefox \
   obs-studio \
+  kdenlive \
   gimp \
-  inkscape \
-  kdenlive
-
-# System Tools
-sudo dnf install -y \
+  vlc \
+  synaptic \
   gnome-tweaks \
-  gnome-extensions-app \
-  gnome-shell-extension-dash-to-dock \
-  timeshift \
-  htop
+  gnome-shell-extensions \
+  gnome-shell-extension-manager
+```
 
-# Faster application loading
-sudo dnf install -y preload
-sudo systemctl enable --now preload
-
-# Better battery life
-sudo dnf install -y tlp tlp-rdw
-sudo systemctl enable --now tlp
-
-# Multimedia codecs
-sudo dnf install -y \
-  gstreamer1-plugins-* \
-  gstreamer1-libav \
-  gstreamer1-vaapi \
-  ffmpeg \
-  libdvdcss
-
-# Node.js via NVM
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
-source ~/.bashrc
-nvm install --lts
-nvm install node
-
-# Python setup
-sudo dnf install -y \
-  python3-pip \
-  python3-virtualenv \
-  python3-devel
-
-# Additional dev tools
+### Development Tools:
+```bash
 sudo dnf install -y \
   git \
-  vim \
-  podman \
-  buildah
+  vscodium \
+  platformio \
+  python3-pip \
+  thonny \
+  miniconda
+```
 
-# Create theme directories
-mkdir -p ~/.themes ~/.icons ~/.local/share/backgrounds
+### ESP32 & MicroPython Setup:
+```bash
+vscodium --install-extension platformio.platformio-ide
+```
+---
 
-# Dock behavior (click to minimize)
+## 4. System Optimization
+### Enable Preload for Faster App Launch:
+```bash
+sudo dnf install preload
+sudo systemctl enable preload
+sudo systemctl start preload
+```
+
+### Improve Laptop Battery Life:
+```bash
+sudo dnf install tlp tlp-rdw
+sudo systemctl enable tlp
+sudo systemctl start tlp
+```
+
+### GNOME Taskbar Click to Open:
+```bash
 gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
+```
 
-# Dark mode preference
-gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+---
 
-# Install local RPM packages
-sudo dnf install -y ./package.rpm
+## 5. Folder Organization
+Create structured directories for efficient file management:
+```bash
+mkdir -p ~/Projects ~/Archives ~/Media ~/Docs
+```
+Automate backups using `rsync`:
+```bash
+rsync -av ~/Projects ~/Archives
+```
 
-# Clean package cache
-sudo dnf clean all
+---
 
-# Check for broken dependencies
-sudo dnf repoquery --unsatisfied
+## 6. Additional Setup
+### Install Node.js (Latest & LTS):
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+nvm install node
+nvm install --lts
+```
 
-# Install local RPM packages
-sudo dnf install -y ./package.rpm
+### Install Custom Software:
+```bash
+sudo dnf install ./package-name.rpm
+```
 
-# Clean package cache
-sudo dnf clean all
+---
 
-# Check for broken dependencies
-sudo dnf repoquery --unsatisfied
+## Conclusion
+This guide ensures a clean, optimized Fedora setup tailored for development and multimedia tasks. Follow these steps to maximize efficiency and performance on your system. 🚀
+
